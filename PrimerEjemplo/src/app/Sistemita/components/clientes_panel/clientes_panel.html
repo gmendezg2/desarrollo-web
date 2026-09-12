@@ -1,0 +1,168 @@
+<section class="space-y-6">
+  <div class="flex items-center justify-between gap-4">
+    <div>
+      <p class="text-sm uppercase tracking-[0.2em] text-blue-600 font-semibold">
+        Clientes
+      </p>
+      <h2 class="text-3xl font-bold text-slate-800">
+        {{ mode === 'crear' ? 'Crear cliente' : 'Consultar clientes' }}
+      </h2>
+    </div>
+  </div>
+
+  <div
+    *ngIf="mode === 'crear'; else consultarTemplate"
+    class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]"
+  >
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <form class="space-y-5" (ngSubmit)="registrarCliente()">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2"
+            >Nombre completo</label
+          >
+          <input
+            [(ngModel)]="nuevoCliente.nombre"
+            name="nombre"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
+            placeholder="Ej. Carlos Ramírez"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2"
+            >Correo electrónico</label
+          >
+          <input
+            [(ngModel)]="nuevoCliente.email"
+            name="email"
+            type="email"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
+            placeholder="cliente@email.com"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2"
+            >Teléfono</label
+          >
+          <input
+            [(ngModel)]="nuevoCliente.telefono"
+            name="telefono"
+            type="tel"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
+            placeholder="555-1234"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2"
+            >Categoría</label
+          >
+          <select
+            [(ngModel)]="nuevoCliente.categoria"
+            name="categoria"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:border-blue-500 focus:outline-none"
+          >
+            <option value="Regular">Regular</option>
+            <option value="Preferente">Preferente</option>
+            <option value="VIP">VIP</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition"
+        >
+          Guardar cliente
+        </button>
+      </form>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <h3 class="text-xl font-bold text-slate-800 mb-4">Resumen</h3>
+      <ul class="space-y-3 text-sm text-slate-600">
+        <li class="flex justify-between">
+          <span>Clientes activos</span
+          ><strong class="text-slate-800">{{ clientesActivos }}</strong>
+        </li>
+        <li class="flex justify-between">
+          <span>Clientes totales</span
+          ><strong class="text-slate-800">{{ clientes.length }}</strong>
+        </li>
+        <li class="flex justify-between">
+          <span>Categoria VIP</span
+          ><strong class="text-slate-800">{{ clientesVip }}</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ng-template #consultarTemplate>
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div
+        class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6"
+      >
+        <h3 class="text-xl font-bold text-slate-800">Listado de clientes</h3>
+        <div class="relative w-full md:w-80">
+          <input
+            [(ngModel)]="filtro"
+            name="filtro"
+            type="text"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 pl-10 focus:border-blue-500 focus:outline-none"
+            placeholder="Buscar cliente..."
+          />
+          <span class="absolute left-3 top-3.5 text-slate-400">⌕</span>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-left">
+          <thead>
+            <tr
+              class="border-b border-slate-200 text-sm text-slate-500 uppercase tracking-wide"
+            >
+              <th class="py-3 px-4">Nombre</th>
+              <th class="py-3 px-4">Email</th>
+              <th class="py-3 px-4">Teléfono</th>
+              <th class="py-3 px-4">Categoría</th>
+              <th class="py-3 px-4">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let cliente of clientesFiltrados"
+              class="border-b border-slate-100 hover:bg-slate-50"
+            >
+              <td class="py-3 px-4 font-medium text-slate-800">
+                {{ cliente.nombre }}
+              </td>
+              <td class="py-3 px-4 text-slate-600">{{ cliente.email }}</td>
+              <td class="py-3 px-4 text-slate-600">{{ cliente.telefono }}</td>
+              <td class="py-3 px-4">
+                <span
+                  class="rounded-full px-2 py-1 text-xs font-semibold"
+                  [ngClass]="{
+                    'bg-blue-100 text-blue-700': cliente.categoria === 'VIP',
+                    'bg-amber-100 text-amber-700': cliente.categoria === 'Preferente',
+                    'bg-slate-200 text-slate-700': cliente.categoria === 'Regular'
+                  }"
+                >
+                  {{ cliente.categoria }}
+                </span>
+              </td>
+              <td class="py-3 px-4">
+                <span
+                  class="rounded-full px-2 py-1 text-xs font-semibold"
+                  [ngClass]="cliente.activo ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'"
+                >
+                  {{ cliente.activo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-template>
+</section>

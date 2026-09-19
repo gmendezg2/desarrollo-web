@@ -22,6 +22,13 @@ export const routes: Routes = [
             (m) => m.ConsultaCliente,
           ),
       },
+      {
+        path: 'consulta_api',
+        loadComponent: () =>
+          import('./Sistemita/components/consulta_api/consulta_api').then(
+            (m) => m.ConsultaApi,
+          ),
+      },
     ],
   },
   {

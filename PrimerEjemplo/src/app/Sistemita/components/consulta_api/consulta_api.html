@@ -1,0 +1,40 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">
+    Consultar API (Fake Store)
+  </h2>
+
+  <p *ngIf="cargando" class="text-slate-500">Cargando productos...</p>
+
+  <p *ngIf="error" class="text-red-500">{{ error }}</p>
+
+  <div
+    *ngIf="!cargando && !error"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    <div
+      *ngFor="let producto of productos"
+      class="bg-white rounded-lg shadow p-4 flex flex-col"
+    >
+      <img
+        [src]="producto.image"
+        [alt]="producto.title"
+        class="h-48 w-full object-contain mb-4"
+      />
+      <h3 class="text-lg font-semibold text-slate-800 line-clamp-2">
+        {{ producto.title }}
+      </h3>
+      <p class="text-sm text-slate-500 mt-1">{{ producto.category }}</p>
+      <p class="text-sm text-slate-500 mt-2 line-clamp-3">
+        {{ producto.description }}
+      </p>
+      <div class="mt-auto pt-4 flex items-center justify-between">
+        <span class="text-xl font-bold text-blue-600">
+          ${{ producto.price }}
+        </span>
+        <span class="text-sm text-slate-500">
+          ★ {{ producto.rating.rate }} ({{ producto.rating.count }})
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

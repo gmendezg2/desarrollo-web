@@ -1,0 +1,36 @@
+<div class="page">
+  <div class="header">
+    <div>
+      <h2>Consultar Productos</h2>
+      <p class="endpoint">GET http://localhost:5171/api/Productos</p>
+    </div>
+    <button type="button" (click)="consultar()" [disabled]="cargando">
+      {{ cargando ? 'Consultando...' : 'Consultar' }}
+    </button>
+  </div>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <table *ngIf="!error && productos.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio | currency }}</td>
+        <td>{{ producto.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!cargando && !error && productos.length === 0" class="empty">
+    No hay productos para mostrar.
+  </p>
+</div>

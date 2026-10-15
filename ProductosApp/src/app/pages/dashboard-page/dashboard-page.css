@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.sidebar {
+  width: 16rem;
+  min-height: 100vh;
+  background-color: #111827;
+  color: #cbd5e1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.logo {
+  padding: 1rem 1.5rem;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.logo h1 span {
+  color: #3b82f6;
+}
+
+.logo p {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.profile {
+  padding: 2.5rem 1.5rem;
+}
+
+.profile p {
+  margin: 0 0 0.5rem;
+  color: #64748b;
+}
+
+.profile-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.nav {
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #334155;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  background-color: #1e40af;
+  color: #ffffff;
+}
+
+.nav-item svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.nav-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+}
+
+.nav-subtitle {
+  font-size: 0.875rem;
+  opacity: 0.5;
+}
+
+.content {
+  flex: 1;
+  margin-left: 16rem;
+  padding: 1.5rem;
+}

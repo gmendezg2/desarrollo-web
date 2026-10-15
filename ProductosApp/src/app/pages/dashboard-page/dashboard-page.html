@@ -1,0 +1,44 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">
+      <h1>Dash<span>8</span>.</h1>
+      <p>Manage your actions and activities</p>
+    </div>
+
+    <div class="profile">
+      <p>Welcome back,</p>
+      <span class="profile-name">Dev Escuintla</span>
+    </div>
+
+    <nav class="nav">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [attr.d]="item.icon"
+          />
+        </svg>
+        <div class="nav-text">
+          <span class="nav-title">{{ item.title }}</span>
+          <span class="nav-subtitle">{{ item.subtitle }}</span>
+        </div>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
